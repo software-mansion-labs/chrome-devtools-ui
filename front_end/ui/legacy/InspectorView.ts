@@ -228,6 +228,7 @@ export class InspectorView extends VBox implements ViewLocationResolver {
     this.tabbedPane.setTabDelegate(this.tabDelegate);
 
     const mainHeaderElement = this.tabbedPane.headerElement();
+    mainHeaderElement.setAttribute('style', 'display:none');
     ARIAUtils.markAsNavigation(mainHeaderElement);
     ARIAUtils.setLabel(mainHeaderElement, i18nString(UIStrings.mainToolbar));
     mainHeaderElement.setAttribute('jslog', `${VisualLogging.toolbar('main').track({

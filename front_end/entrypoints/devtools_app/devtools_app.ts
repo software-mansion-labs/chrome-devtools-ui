@@ -31,6 +31,15 @@ import '../../panels/whats_new/whats_new-meta.js';
 import * as Root from '../../core/root/root.js';
 import * as Main from '../main/main.js';
 
+declare global {
+  interface Window {
+	__websocketEndpoint?: string;
+  }
+}
+
 // @ts-ignore Exposed for legacy layout tests
 self.runtime = Root.Runtime.Runtime.instance({forceNew: true});
+Root.Runtime.Runtime.setQueryParamForTesting('panel', 'network');
+Root.Runtime.Runtime.setQueryParamForTesting('v8only', 'true');
+Root.Runtime.Runtime.setQueryParamForTesting('ws', window.__websocketEndpoint || 'localhost:9222');
 new Main.MainImpl.MainImpl();

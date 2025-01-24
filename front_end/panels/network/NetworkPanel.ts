@@ -441,29 +441,29 @@ export class NetworkPanel extends UI.Panel.Panel implements
     this.panelToolbar.appendToolbarItem(searchToggle);
     this.panelToolbar.appendSeparator();
 
-    this.panelToolbar.appendToolbarItem(new UI.Toolbar.ToolbarSettingCheckbox(
-        this.preserveLogSetting, i18nString(UIStrings.doNotClearLogOnPageReload), i18nString(UIStrings.preserveLog)));
+    // this.panelToolbar.appendToolbarItem(new UI.Toolbar.ToolbarSettingCheckbox(
+    //     this.preserveLogSetting, i18nString(UIStrings.doNotClearLogOnPageReload), i18nString(UIStrings.preserveLog)));
 
-    this.panelToolbar.appendSeparator();
+    // this.panelToolbar.appendSeparator();
     const disableCacheCheckbox = new UI.Toolbar.ToolbarSettingCheckbox(
         Common.Settings.Settings.instance().moduleSetting('cache-disabled'),
         i18nString(UIStrings.disableCacheWhileDevtoolsIsOpen), i18nString(UIStrings.disableCache));
-    this.panelToolbar.appendToolbarItem(disableCacheCheckbox);
+    // this.panelToolbar.appendToolbarItem(disableCacheCheckbox);
 
-    this.panelToolbar.appendToolbarItem(this.throttlingSelect);
+    // this.panelToolbar.appendToolbarItem(this.throttlingSelect);
 
     const networkConditionsButton = new UI.Toolbar.ToolbarButton(
         i18nString(UIStrings.moreNetworkConditions), 'network-settings', undefined, 'network-conditions');
     networkConditionsButton.addEventListener(UI.Toolbar.ToolbarButton.Events.CLICK, () => {
       void UI.ViewManager.ViewManager.instance().showView('network.config');
     }, this);
-    this.panelToolbar.appendToolbarItem(networkConditionsButton);
+    // this.panelToolbar.appendToolbarItem(networkConditionsButton);
 
     this.rightToolbar.appendToolbarItem(new UI.Toolbar.ToolbarItem(this.progressBarContainer));
-    this.rightToolbar.appendSeparator();
-    this.rightToolbar.appendToolbarItem(new UI.Toolbar.ToolbarSettingToggle(
-        this.showSettingsPaneSetting, 'gear', i18nString(UIStrings.networkSettings), 'gear-filled',
-        'network-settings'));
+    // this.rightToolbar.appendSeparator();
+    // this.rightToolbar.appendToolbarItem(new UI.Toolbar.ToolbarSettingToggle(
+    //     this.showSettingsPaneSetting, 'gear', i18nString(UIStrings.networkSettings), 'gear-filled',
+    //     'network-settings'));
 
     const settingsToolbarLeft = new UI.Toolbar.Toolbar('', this.settingsPane.element);
     settingsToolbarLeft.makeVertical();
