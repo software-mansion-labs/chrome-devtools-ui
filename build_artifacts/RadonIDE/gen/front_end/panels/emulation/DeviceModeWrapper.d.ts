@@ -1,0 +1,27 @@
+import * as SDK from '../../core/sdk/sdk.js';
+import type * as Protocol from '../../generated/protocol.js';
+import * as UI from '../../ui/legacy/legacy.js';
+import type { InspectedPagePlaceholder } from './InspectedPagePlaceholder.js';
+export declare class DeviceModeWrapper extends UI.Widget.VBox {
+    private readonly inspectedPagePlaceholder;
+    private deviceModeView;
+    private readonly toggleDeviceModeAction;
+    private showDeviceModeSetting;
+    private enableOncePossible;
+    private constructor();
+    static instance(opts?: {
+        forceNew: boolean | null;
+        inspectedPagePlaceholder: InspectedPagePlaceholder | null;
+    }): DeviceModeWrapper;
+    inspectedUrlChanged(event: {
+        data: SDK.Target.Target;
+    }): void;
+    toggleDeviceMode(): void;
+    isDeviceModeOn(): boolean;
+    captureScreenshot(fullSize?: boolean, clip?: Protocol.Page.Viewport): boolean;
+    private screenshotRequestedFromOverlay;
+    update(force?: boolean): void;
+}
+export declare class ActionDelegate implements UI.ActionRegistration.ActionDelegate {
+    handleAction(context: UI.Context.Context, actionId: string): boolean;
+}
