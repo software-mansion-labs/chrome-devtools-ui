@@ -1,15 +1,1 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as WasmParserWorker from './wasmparser_worker.js';
-self.onmessage = (event) => {
-    const method = event.data.method;
-    if (method !== 'disassemble') {
-        return;
-    }
-    self.postMessage(WasmParserWorker.WasmParserWorker.dissambleWASM(event.data.params, (message) => {
-        self.postMessage(message);
-    }));
-};
-self.postMessage('workerReady');
-//# sourceMappingURL=wasmparser_worker-entrypoint.js.map
+import*as s from"./wasmparser_worker.js";self.onmessage=e=>{"disassemble"===e.data.method&&self.postMessage(s.WasmParserWorker.dissambleWASM(e.data.params,(s=>{self.postMessage(s)})))},self.postMessage("workerReady");

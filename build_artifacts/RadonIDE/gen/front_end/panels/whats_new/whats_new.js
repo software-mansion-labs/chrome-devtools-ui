@@ -1,8 +1,30 @@
-// Copyright 2024 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as ReleaseNoteText from './ReleaseNoteText.js';
-import * as ReleaseNoteView from './ReleaseNoteView.js';
-import * as WhatsNew from './WhatsNewImpl.js';
-export { ReleaseNoteText, ReleaseNoteView, WhatsNew, };
-//# sourceMappingURL=whats_new.js.map
+import*as e from"../../ui/components/markdown_view/markdown_view.js";import*as t from"../../core/host/host.js";import*as s from"../../core/i18n/i18n.js";import*as n from"../../third_party/marked/marked.js";import"../../ui/components/buttons/buttons.js";import*as o from"../../ui/legacy/legacy.js";import*as r from"../../ui/lit-html/lit-html.js";import*as i from"../../ui/visual_logging/visual_logging.js";import*as a from"../../core/common/common.js";let l=!1;function c(){if(!l){for(const{key:t,link:s}of d.markdownLinks)e.MarkdownLinksMap.markdownLinks.set(t,s);l=!0}return d}let d={version:73,header:"What's new in DevTools 132",markdownLinks:[{key:"ai-assistance",link:"https://developer.chrome.com/blog/new-in-devtools-132/#ai-assistance"},{key:"chat-history",link:"https://developer.chrome.com/blog/new-in-devtools-132/#chat-history"},{key:"interaction-phases",link:"https://developer.chrome.com/blog/new-in-devtools-132/#interaction-phases"}],videoLinks:[{description:"Highlights from the Chrome 132 update",link:"https://developer.chrome.com/blog/new-in-devtools-132/",type:"WhatsNew"}],link:"https://developer.chrome.com/blog/new-in-devtools-132/"};var h=Object.freeze({__proto__:null,getReleaseNote:c,setReleaseNoteForTest:function(e){d=e}});const v=new CSSStyleSheet;v.replaceSync('.whatsnew{padding:var(--sys-size-9) 0 0;background:var(--sys-color-header-container);flex-grow:1;display:flex;flex-direction:column;gap:var(--sys-size-9);>*{padding:0 var(--sys-size-9)}}.header{display:flex;align-items:center;font:var(--sys-typescale-headline4);&::before{content:"";width:var(--sys-size-9);height:var(--sys-size-9);transform:scale(1.6);margin:0 var(--sys-size-8) 0 var(--sys-size-4);background-image:var(--image-file-devtools);flex-shrink:0}}.feature-container{flex-grow:1;padding:0;background-color:var(--sys-color-surface);border-radius:var(--sys-shape-corner-large) var(--sys-shape-corner-large) 0 0;display:flex;flex-direction:column}.feature{background-color:var(--sys-color-surface3);padding:0 var(--sys-size-8) var(--sys-size-8);border-radius:var(--sys-shape-corner-medium);flex-shrink:0;margin:0 var(--sys-size-9) var(--sys-size-9)}.video-container{margin-bottom:var(--sys-size-9);&:has(.video){--video-bottom-padding:var(--sys-size-6);overflow:auto;display:flex;flex-direction:row;gap:var(--sys-size-5);flex-shrink:0;padding:var(--sys-size-9) 0 var(--video-bottom-padding) var(--sys-size-9);margin-bottom:calc(var(--sys-size-9) - var(--video-bottom-padding));> *{min-width:auto}}}.video{align-items:center;display:flex;flex-direction:row;border-radius:var(--sys-shape-corner-medium);background-color:var(--sys-color-surface3);font:var(--sys-typescale-body5-regular);min-width:var(--sys-size-29);max-width:var(--sys-size-32);overflow:hidden;height:72px;&:hover{box-shadow:var(--sys-elevation-level3)}.thumbnail{border-radius:var(--sys-shape-corner-medium) 0 0 var(--sys-shape-corner-medium);flex-shrink:0}.thumbnail-description{--description-margin:var(--sys-size-6);margin:var(--description-margin);height:calc(100% - var(--description-margin) * 2);overflow:hidden}}@media (forced-colors: active){.feature,\n  .video{border:var(--sys-size-1) solid ButtonText}}\n/*# sourceURL=releaseNoteView.css */\n');const{render:m,html:g}=r,p={seeFeatures:"See all new features"},u=s.i18n.registerUIStrings("panels/whats_new/ReleaseNoteView.ts",p),w=s.i18n.getLocalizedString.bind(void 0,u),f="../../Images/whatsnew.svg",y="../../Images/devtools-tips.svg",k="../../Images/devtools-thumbnail.svg";async function b(){const e=await N.getFileContent(),t=n.Marked.lexer(e),s=[];let o=Number.MAX_SAFE_INTEGER;return t.forEach((e=>{"heading"===e.type&&o>=e.depth?(s.push([e]),o=e.depth):s.length>0?s[s.length-1].push(e):s.push([e])})),s}class N extends o.Widget.VBox{#e;constructor(e,t=((e,t,s)=>{const n=e.getReleaseNote(),o=e.markdownContent;m(g`
+      <div class="whatsnew" jslog=${i.section().context("release-notes")}>
+        <div class="header">
+          ${n.header}
+        </div>
+        <div>
+          <devtools-button
+                .variant=${"primary"}
+                .jslogContext=${"learn-more"}
+                @click=${()=>e.openNewTab(n.link)}
+            >${w(p.seeFeatures)}</devtools-button>
+        </div>
+
+        <div class="feature-container">
+          <div class="video-container">
+            ${n.videoLinks.map((t=>g`
+                <x-link
+                href=${t.link}
+                jslog=${i.link().track({click:!0}).context("learn-more")}>
+                  <div class="video">
+                    <img class="thumbnail" src=${e.getThumbnailPath(t.type??"WhatsNew")}>
+                    <div class="thumbnail-description"><span>${t.description}</span></div>
+                  </div>
+              </x-link>
+              `))}
+          </div>
+          ${o.map((e=>g`<div class="feature"><devtools-markdown-view slot="content" .data=${{tokens:e}}></devtools-markdown-view></div>`))}
+        </div>
+      </div>
+    `,s,{host:this})})){super(!0,void 0,e),this.#e=t,this.update()}static async getFileContent(){const e=new URL("./resources/WNDT.md",import.meta.url);try{return(await fetch(e.toString())).text()}catch(t){throw new Error(`Markdown file ${e.toString()} not found. Make sure it is correctly listed in the relevant BUILD.gn files.`)}}async doUpdate(){const e=await b();this.#e({getReleaseNote:c,openNewTab:this.#t,markdownContent:e,getThumbnailPath:this.#s},this,this.contentElement)}#s(e){let t;switch(e){case"WhatsNew":t=f;break;case"DevtoolsTips":t=y;break;case"Other":t=k}return new URL(t,import.meta.url).toString()}#t(e){t.InspectorFrontendHost.InspectorFrontendHostInstance.openInNewTab(e)}wasShown(){super.wasShown(),this.registerCSSFiles([v])}}var S=Object.freeze({__proto__:null,DEVTOOLS_TIPS_THUMBNAIL:y,GENERAL_THUMBNAIL:k,ReleaseNoteView:N,WHATS_NEW_THUMBNAIL:f,getMarkdownContent:b});const x="releaseNoteVersionSeen",I="release-note";let z,_,T,L;function R(){return function(e,t,s){const n=a.Settings.Settings.instance().createSetting(x,0);if(!e)return n.set(t),!1;if(!s)return!1;if(e>=t)return!1;return n.set(t),o.ViewManager.ViewManager.instance().showView(I,!0),!0}(a.Settings.Settings.instance().createSetting(x,0).get(),c().version,a.Settings.Settings.instance().moduleSetting("help.show-release-note").get())}class j{static instance(e={forceNew:null}){const{forceNew:t}=e;return _&&!t||(_=new j),_}async run(){t.InspectorFrontendHost.isUnderTest()||R()}}class F{handleAction(e,s){const n=c();return t.InspectorFrontendHost.InspectorFrontendHostInstance.openInNewTab(n.link),!0}static instance(e={forceNew:null}){const{forceNew:t}=e;return T&&!t||(T=new F),T}}class ${handleAction(e,s){return t.InspectorFrontendHost.InspectorFrontendHostInstance.openInNewTab("https://goo.gle/devtools-bug"),!0}static instance(e={forceNew:null}){const{forceNew:t}=e;return L&&!t||(L=new $),L}}var H=Object.freeze({__proto__:null,HelpLateInitialization:j,ReleaseNotesActionDelegate:F,ReportIssueActionDelegate:$,getReleaseNoteVersionSetting:function(){return z||(z=a.Settings.Settings.instance().createSetting(x,0)),z},releaseNoteViewId:I,releaseVersionSeen:x,showReleaseNoteIfNeeded:R});export{h as ReleaseNoteText,S as ReleaseNoteView,H as WhatsNew};

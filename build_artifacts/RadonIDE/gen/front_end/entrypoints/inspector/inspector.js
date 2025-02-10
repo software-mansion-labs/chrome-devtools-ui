@@ -1,6 +1,1 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import '../devtools_app/devtools_app.js';
-import '../../panels/screencast/screencast-meta.js';
-//# sourceMappingURL=inspector.js.map
+import"../devtools_app/devtools_app.js";import*as e from"../../core/common/common.js";import*as o from"../../ui/legacy/legacy.js";let r;async function a(){return r||(r=await import("../../panels/screencast/screencast.js")),r}o.Toolbar.registerToolbarItem({loadItem:async()=>(await a()).ScreencastApp.ToolbarButtonProvider.instance(),order:1,location:"main-toolbar-left"}),e.AppProvider.registerAppProvider({loadAppProvider:async()=>(await a()).ScreencastApp.ScreencastAppProvider.instance(),order:1}),o.ContextMenu.registerItem({location:"mainMenu",order:10,actionId:"components.request-app-banner"});

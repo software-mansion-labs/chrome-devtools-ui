@@ -1,11 +1,1 @@
-// Copyright 2024 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-export const EVENT_BINDING_NAME = '__chromium_devtools_metrics_reporter';
-export const INTERNAL_KILL_SWITCH = '__chromium_devtools_kill_live_metrics';
-export const SCRIPTS_PER_LOAF_LIMIT = 10;
-export const LOAF_LIMIT = 5;
-export function getUniqueLayoutShiftId(entry) {
-    return `layout-shift-${entry.value}-${entry.startTime}`;
-}
-//# sourceMappingURL=spec.js.map
+const t="__chromium_devtools_metrics_reporter",e="__chromium_devtools_kill_live_metrics",o=10,r=5;function _(t){return`layout-shift-${t.value}-${t.startTime}`}export{t as EVENT_BINDING_NAME,e as INTERNAL_KILL_SWITCH,r as LOAF_LIMIT,o as SCRIPTS_PER_LOAF_LIMIT,_ as getUniqueLayoutShiftId};

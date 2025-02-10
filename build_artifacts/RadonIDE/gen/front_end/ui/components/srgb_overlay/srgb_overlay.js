@@ -1,6 +1,6 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as SrgbOverlay from './SrgbOverlay.js';
-export { SrgbOverlay };
-//# sourceMappingURL=srgb_overlay.js.map
+import*as t from"../../../core/common/common.js";import*as e from"../render_coordinator/render_coordinator.js";import*as o from"../../lit-html/lit-html.js";const r=new CSSStyleSheet;r.replaceSync(":host{position:absolute;left:0;top:0;width:100%;height:100%}.gamut-line{stroke:color-mix(in sRGB,var(--ref-palette-neutral100) 50%,transparent);fill:none}.label{position:absolute;bottom:3px;margin-right:5px;color:color-mix(in sRGB,var(--ref-palette-neutral100) 50%,transparent)}\n/*# sourceURL=srgbOverlay.css */\n");const{html:n}=o,s=e.RenderCoordinator.RenderCoordinator.instance();function i(e){const o=t.Color.hsva2rgba([...e,1]),r=t.ColorConverter.ColorConverter.displayP3ToXyzd50(o[0],o[1],o[2]);return t.ColorConverter.ColorConverter.xyzd50ToSrgb(r[0],r[1],r[2]).every((t=>t+.001>=0&&t-.001<=1))}class l extends HTMLElement{#t=this.attachShadow({mode:"open"});constructor(){super(),this.#t.adoptedStyleSheets=[r]}#e({hue:t,width:e,height:o}){if(0===e||0===o)return null;const r=1/window.devicePixelRatio,n=[];let s=0;for(let l=0;l<o;l+=r){const a=1-l/o;for(;s<e;s+=r){if(!i([t,s/e,a])){n.push({x:s,y:l});break}}}if(0===n.length)return null;const l=n[n.length-1];return l.x<e&&n.push({y:l.y,x:e}),n}#o(t,e){let o=1/0,r=null;for(const n of t)Math.abs(e-n.y)<=o&&(o=Math.abs(e-n.y),r=n);return r}render({hue:t,width:e,height:r}){return s.write("Srgb Overlay render",(()=>{const s=this.#e({hue:t,width:e,height:r});if(!s||0===s.length)return;const i=this.#o(s,r-13);i&&o.render(n`
+          <span class="label" style="right: ${e-i.x}px">sRGB</span>
+          <svg>
+            <polyline points=${s.map((t=>`${t.x.toFixed(2)},${t.y.toFixed(2)}`)).join(" ")} class="gamut-line" />
+          </svg>
+        `,this.#t,{host:this})}))}}customElements.define("devtools-spectrum-srgb-overlay",l);var a=Object.freeze({__proto__:null,SrgbOverlay:l});export{a as SrgbOverlay};

@@ -1,6 +1,17 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as ExpandableList from './ExpandableList.js';
-export { ExpandableList };
-//# sourceMappingURL=expandable_list.js.map
+import*as e from"../../lit-html/lit-html.js";import*as t from"../../visual_logging/visual_logging.js";const i=new CSSStyleSheet;i.replaceSync(":host{overflow:hidden}div{line-height:1.7em}.arrow-icon-button{cursor:pointer;padding:1px 0;border:none;background:none;margin-right:2px}.arrow-icon{display:inline-block;mask-image:var(--image-file-triangle-right);background-color:var(--icon-default);margin-top:2px;height:14px;width:14px;transition:transform 200ms}.arrow-icon.expanded{transform:rotate(90deg)}.expandable-list-container{display:flex;margin-top:4px}.expandable-list-items{overflow:hidden}.link,\n.devtools-link{color:var(--sys-color-primary);text-decoration:underline;cursor:pointer;outline-offset:2px}button.link{border:none;background:none;font-family:inherit;font-size:inherit}.text-ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n/*# sourceURL=expandableList.css */\n");const{html:n,Directives:{ifDefined:o}}=e;class a extends HTMLElement{#e=this.attachShadow({mode:"open"});#t=!1;#i=[];#n;set data(e){this.#i=e.rows,this.#n=e.title,this.#o()}#a(){this.#t=!this.#t,this.#o()}connectedCallback(){this.#e.adoptedStyleSheets=[i]}#o(){this.#i.length<1||e.render(n`
+      <div class="expandable-list-container">
+        <div>
+          ${this.#i.length>1?n`
+              <button title='${o(this.#n)}' aria-label='${o(this.#n)}' aria-expanded=${this.#t?"true":"false"} @click=${()=>this.#a()} class="arrow-icon-button">
+                <span class="arrow-icon ${this.#t?"expanded":""}"
+                jslog=${t.expand().track({click:!0})}></span>
+              </button>
+            `:e.nothing}
+        </div>
+        <div class="expandable-list-items">
+          ${this.#i.filter(((e,t)=>this.#t||0===t)).map((e=>n`
+            ${e}
+          `))}
+        </div>
+      </div>
+    `,this.#e,{host:this})}}customElements.define("devtools-expandable-list",a);var s=Object.freeze({__proto__:null,ExpandableList:a});export{s as ExpandableList};

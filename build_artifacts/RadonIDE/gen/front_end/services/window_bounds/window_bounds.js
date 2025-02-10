@@ -1,6 +1,1 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as WindowBoundsService from './WindowBoundsService.js';
-export { WindowBoundsService, };
-//# sourceMappingURL=window_bounds.js.map
+import*as e from"../../ui/legacy/legacy.js";let n;class t{static instance(e={forceNew:null}){const{forceNew:o}=e;return n&&!o||(n=new t),n}getDevToolsBoundingElement(){return e.InspectorView.InspectorView.maybeGetInspectorViewInstance()?.element||document.body}}var o=Object.freeze({__proto__:null,WindowBoundsServiceImpl:t});export{o as WindowBoundsService};

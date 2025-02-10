@@ -1,6 +1,3 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as NodeText from './NodeText.js';
-export { NodeText, };
-//# sourceMappingURL=node_text.js.map
+import*as e from"../../lit-html/lit-html.js";const s=new CSSStyleSheet;s.replaceSync(".node-label-name{color:var(--override-node-text-label-color,var(--sys-color-token-tag))}.node-label-class{color:var(--override-node-text-class-color,var(--sys-color-token-attribute))}.node-label-id{color:var(--override-node-text-id-color,var(--sys-color-token-attribute))}.node-label-class.node-multiple-descriptors{color:var(--override-node-text-multiple-descriptors-class,var(--override-node-text-class-color,var(--sys-color-token-attribute)))}.node-label-id.node-multiple-descriptors{color:var(--override-node-text-multiple-descriptors-id,var(--override-node-text-id-color,var(--sys-color-token-attribute)))}\n/*# sourceURL=nodeText.css */\n");const{render:o,html:t}=e;class l extends HTMLElement{#e=this.attachShadow({mode:"open"});#s="";#o="";#t=[];connectedCallback(){this.#e.adoptedStyleSheets=[s]}set data(e){this.#s=e.nodeTitle,this.#o=e.nodeId,this.#t=e.nodeClasses,this.#l()}#l(){const s=Boolean(this.#o),l=Boolean(this.#t&&this.#t.length>0),d=[t`<span class="node-label-name">${this.#s}</span>`];if(this.#o){const s=e.Directives.classMap({"node-label-id":!0,"node-multiple-descriptors":l});d.push(t`<span class=${s}>#${CSS.escape(this.#o)}</span>`)}if(this.#t&&this.#t.length>0){const o=this.#t.map((e=>`.${CSS.escape(e)}`)).join(""),l=e.Directives.classMap({"node-label-class":!0,"node-multiple-descriptors":s});d.push(t`<span class=${l}>${o}</span>`)}o(t`
+      ${d}
+    `,this.#e,{host:this})}}customElements.define("devtools-node-text",l);var d=Object.freeze({__proto__:null,NodeText:l});export{d as NodeText};

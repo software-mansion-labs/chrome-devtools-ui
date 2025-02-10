@@ -5,17 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright 2023 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-/* stylelint-disable-next-line selector-pseudo-element-no-unknown,selector-type-no-unknown */
-:root::highlight(search-highlight) {
-  background-color: var(--sys-color-yellow-outline);
-}
-
+`:root::highlight(search-highlight){background-color:var(--sys-color-yellow-outline)}
 /*# sourceURL=highlighting.css */
 `);
 

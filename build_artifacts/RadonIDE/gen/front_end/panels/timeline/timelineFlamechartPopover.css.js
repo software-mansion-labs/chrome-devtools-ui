@@ -5,69 +5,8 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright (c) 2015 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-.timeline-flamechart-popover {
-  overflow: hidden;
-}
-
-.timeline-flamechart-popover devtools-interaction-breakdown {
-  margin-top: 10px;
-}
-
-.timeline-flamechart-popover span {
-  margin-right: 5px;
-}
-
-.timeline-flamechart-popover span.popoverinfo-network-time {
-  color: var(--sys-color-primary);
-}
-
-.timeline-flamechart-popover span.popoverinfo-time {
-  color: var(--sys-color-green);
-}
-
-.timeline-flamechart-popover span.popoverinfo-warning {
-  color: var(--sys-color-error);
-}
-
-.timeline-flamechart-popover span.popoverinfo-url-path,
-.timeline-flamechart-popover span.popoverinfo-url-origin {
-  color: var(--sys-color-token-subtle);
-  font-size: 11px;
-}
-
-.timeline-flamechart-popover span.popoverinfo-url-origin {
-  font-style: italic;
-}
-
-.timeline-flamechart-popover span.popoverinfo-warning * {
-  color: inherit;
-}
-
-.layout-shift-viz {
-  position: relative;
-  margin: var(--sys-size-8) var(--sys-size-5);
-  outline: 1px solid var(--sys-color-divider);
-}
-
-.layout-shift-viz-rect {
-  outline: 1px solid color-mix(in sRGB, var(--color-background-inverted) 20%, var(--app-color-rendering));
-  background-color: color-mix(in sRGB, var(--color-background-inverted-opacity-0) 50%, var(--app-color-rendering-children));
-  position: absolute;
-  z-index: 100;
-}
-
-.layout-shift-viz > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
+`.timeline-flamechart-popover{overflow:hidden}.timeline-flamechart-popover devtools-interaction-breakdown{margin-top:10px}.timeline-flamechart-popover span{margin-right:5px}.timeline-flamechart-popover span.popoverinfo-network-time{color:var(--sys-color-primary)}.timeline-flamechart-popover span.popoverinfo-time{color:var(--sys-color-green)}.timeline-flamechart-popover span.popoverinfo-warning{color:var(--sys-color-error)}.timeline-flamechart-popover span.popoverinfo-url-path,
+.timeline-flamechart-popover span.popoverinfo-url-origin{color:var(--sys-color-token-subtle);font-size:11px}.timeline-flamechart-popover span.popoverinfo-url-origin{font-style:italic}.timeline-flamechart-popover span.popoverinfo-warning *{color:inherit}.layout-shift-viz{position:relative;margin:var(--sys-size-8) var(--sys-size-5);outline:1px solid var(--sys-color-divider)}.layout-shift-viz-rect{outline:1px solid color-mix(in sRGB,var(--color-background-inverted) 20%,var(--app-color-rendering));background-color:color-mix(in sRGB,var(--color-background-inverted-opacity-0) 50%,var(--app-color-rendering-children));position:absolute;z-index:100}.layout-shift-viz > img{position:absolute;top:0;left:0}
 /*# sourceURL=timelineFlamechartPopover.css */
 `);
 

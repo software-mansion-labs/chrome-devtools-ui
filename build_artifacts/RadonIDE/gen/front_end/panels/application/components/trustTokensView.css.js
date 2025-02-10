@@ -5,39 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright (c) 2021 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-:host {
-  padding: 20px;
-}
-
-.heading {
-  font-size: 15px;
-}
-
-devtools-data-grid-controller {
-  border: 1px solid var(--sys-color-divider);
-  margin-top: 20px;
-
-  & devtools-button {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-devtools-icon {
-  width: 14px;
-  height: 14px;
-}
-
-.no-tt-message {
-  margin-top: 20px;
-}
-
+`:host{padding:20px}.heading{font-size:15px}devtools-data-grid-controller{border:1px solid var(--sys-color-divider);margin-top:20px;& devtools-button{width:14px;height:14px}}devtools-icon{width:14px;height:14px}.no-tt-message{margin-top:20px}
 /*# sourceURL=trustTokensView.css */
 `);
 

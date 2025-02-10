@@ -1,8 +1,1 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as Static from './static.js';
-export { render, svg, nothing, noChange, LitElement, Directive, Directives, Decorators, } from '../../third_party/lit/lit.js';
-const { html, literal, flattenTemplate, i18nTemplate } = Static;
-export { html, literal, flattenTemplate, i18nTemplate };
-//# sourceMappingURL=lit-html.js.map
+import*as t from"../../core/i18n/i18n.js";import*as e from"../../third_party/lit/lit.js";export{Decorators,Directive,Directives,LitElement,noChange,nothing,render,svg}from"../../third_party/lit/lit.js";function n(t,...e){const n=[],r=[];let o="";for(let i=0;i<e.length;i++){const a=e[i];l(a)?(o+=t[i]+a.value,n.push(!1)):(o+=t[i],r.push(o),o="",n.push(!0))}return r.push(o+t[e.length]),r.raw=[...r],{strings:r,valueMap:n}}function r(t,...r){const i=r.filter((t=>l(t)));if(i.length){return function(t,r,l){let i,a=o.get(t);a||(a=new Map,o.set(t,a));i=a.get(l),i||(i=n(t,...r),a.set(l,i));const s=r.filter(((t,e)=>i.valueMap[e]));return e.html(i.strings,...s)}(t,r,i.map((t=>t.value)).join(" "))}return e.html(t,...r)}function l(t){return"object"==typeof t&&null!==t&&"$$static$$"in t}const o=new WeakMap;var i=Object.freeze({__proto__:null,flattenTemplate:n,html:r,i18nTemplate:function(e,n,l){const o=e.getLocalizedStringSetFor(t.DevToolsLocale.DevToolsLocale.instance().locale).getMessageFormatterFor(n);let i=r``;for(const t of o.getAst())if(1===t.type){const e=l[t.value];e&&(i=r`${i}${e}`)}else"value"in t&&(i=r`${i}${t.value}`);return i},literal:function(t){return{value:t[0],$$static$$:!0}}});const{html:a,literal:s,flattenTemplate:c,i18nTemplate:u}=i;export{c as flattenTemplate,a as html,u as i18nTemplate,s as literal};

@@ -1,5 +1,1 @@
-// Copyright 2024 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-export * from './MetricTestUtils.js';
-//# sourceMappingURL=testing.js.map
+import*as t from"../../trace.js";import*as a from"../lantern.js";function r(t){return{traceEvents:t}}async function e(a){const r=t.Processor.TraceProcessor.createWithAllHandlers();if(await r.parse(a.traceEvents,{isCPUProfile:!1,isFreshRecording:!0}),!r.parsedTrace)throw new Error("No data");return r.parsedTrace}async function n({trace:r,settings:n,url:o}){(n=n??{}).throttlingMethod||(n.throttlingMethod="simulate");const i=await e(r),s=t.LanternComputationData.createNetworkRequests(r,i),c=a.Core.NetworkAnalyzer.analyze(s);if(!c)throw new Error("no networkAnalysis");const l=i.Meta.mainFrameId,u=i.Meta.mainFrameNavigations[0].args.data?.navigationId;if(!u)throw new Error("no navigation id found");return{simulator:a.Simulation.Simulator.createSimulator({...n,networkAnalysis:c}),graph:t.LanternComputationData.createGraph(s,r,i,o),processedNavigation:t.LanternComputationData.createProcessedNavigation(i,l,u)}}export{n as getComputationDataFromFixture,e as runTrace,r as toLanternTrace};

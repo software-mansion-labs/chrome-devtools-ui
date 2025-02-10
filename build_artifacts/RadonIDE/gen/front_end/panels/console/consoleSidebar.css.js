@@ -5,35 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright (c) 2017 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-.count {
-  flex: none;
-  margin: 0 var(--sys-size-3);
-}
-
-devtools-icon {
-  &[name="cross-circle"] {
-    color: var(--sys-color-error-bright);
-  }
-
-  &[name="warning"] {
-    color: var(--icon-warning);
-  }
-
-  &[name="info"] {
-    color: var(--icon-info);
-  }
-}
-
-.tree-element-title {
-  flex-grow: 1;
-}
-
+`.count{flex:none;margin:0 var(--sys-size-3)}devtools-icon{&[name="cross-circle"]{color:var(--sys-color-error-bright)}&[name="warning"]{color:var(--icon-warning)}&[name="info"]{color:var(--icon-info)}}.tree-element-title{flex-grow:1}
 /*# sourceURL=consoleSidebar.css */
 `);
 

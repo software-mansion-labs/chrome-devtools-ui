@@ -1,24 +1,187 @@
-// Copyright 2024 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as BaseInsightComponent from './BaseInsightComponent.js';
-import * as CLSCulprits from './CLSCulprits.js';
-import * as DocumentLatency from './DocumentLatency.js';
-import * as DOMSize from './DOMSize.js';
-import * as EventRef from './EventRef.js';
-import * as FontDisplay from './FontDisplay.js';
-import * as Helpers from './Helpers.js';
-import * as ImageDelivery from './ImageDelivery.js';
-import * as InteractionToNextPaint from './InteractionToNextPaint.js';
-import * as LCPDiscovery from './LCPDiscovery.js';
-import * as LCPPhases from './LCPPhases.js';
-import * as NodeLink from './NodeLink.js';
-import * as RenderBlocking from './RenderBlocking.js';
-import * as SidebarInsight from './SidebarInsight.js';
-import * as SlowCSSSelector from './SlowCSSSelector.js';
-import * as Table from './Table.js';
-import * as ThirdParties from './ThirdParties.js';
-import * as Types from './types.js';
-import * as Viewport from './Viewport.js';
-export { BaseInsightComponent, CLSCulprits, DocumentLatency, DOMSize, EventRef, FontDisplay, Helpers, ImageDelivery, InteractionToNextPaint, LCPDiscovery, LCPPhases, NodeLink, RenderBlocking, SidebarInsight, SlowCSSSelector, Table, ThirdParties, Types, Viewport, };
-//# sourceMappingURL=insights.js.map
+import"../../../../ui/components/markdown_view/markdown_view.js";import*as e from"../../../../core/i18n/i18n.js";import"../../../../ui/components/buttons/buttons.js";import*as t from"../../../../ui/components/helpers/helpers.js";import*as s from"../../../../ui/lit-html/lit-html.js";import*as i from"../../../../ui/visual_logging/visual_logging.js";import*as n from"../../../../core/platform/platform.js";import*as o from"../../../../models/crux-manager/crux-manager.js";import*as r from"../../../../third_party/marked/marked.js";import*as a from"../../../mobile_throttling/mobile_throttling.js";import*as l from"../../../../models/trace/trace.js";import*as d from"../../utils/utils.js";import"../../../../ui/components/icon_button/icon_button.js";import*as c from"../../../../core/common/common.js";import*as h from"../../../../core/sdk/sdk.js";import"../../../../ui/components/linkifier/linkifier.js";const{html:m}=s;const u=new CSSStyleSheet;u.replaceSync(".insight{display:block;position:relative;width:auto;height:auto;margin:var(--sys-size-6) 0;border-radius:var(--sys-shape-corner-extra-small);overflow:hidden;border:var(--sys-size-1) solid var(--sys-color-divider);background-color:var(--sys-color-base);&.closed{background-color:var(--sys-color-surface3);border:none;&:focus-within{outline:var(--sys-size-1) solid var(--sys-color-primary)}}header{padding:var(--sys-size-5) var(--sys-size-6);h3{font:var(--sys-typescale-body4-medium)}}&:not(.closed){header{padding-bottom:var(--sys-size-2)}}}.insight-hover-icon{position:absolute;top:var(--sys-size-5);right:var(--sys-size-5);border:none;width:var(--sys-size-9);user-select:none;height:var(--sys-size-9);box-shadow:var(--sys-elevation-level1);border-radius:var(--sys-shape-corner-full);background:var(--sys-color-cdt-base-container);opacity:0%;transition:opacity 0.2s ease;.insight:hover &,\n  header:focus-within &{opacity:100%}devtools-button{transition:transform 0.2s ease}&.active devtools-button{transform:rotate(180deg)}}.insight-description,\n.insight-body,\n.insight-title{user-select:text}.insight-body{padding:0 var(--sys-size-6) var(--sys-size-5) var(--sys-size-6);.list-title{margin-top:var(--sys-size-4);margin-bottom:var(--sys-size-3)}ul{padding:0 0 0 var(--sys-size-9);margin:0}}.insight-section{padding-top:var(--sys-size-5)}.insight-description:not(:empty){padding-bottom:var(--sys-size-5)}.insight-section:not(:empty){border-top:var(--sys-size-1) solid var(--sys-color-divider)}.insight-title{color:var(--sys-color-on-base);margin-block:3px}.link{color:var(--sys-color-primary)}.dl-title{font-weight:bold}dd.dl-title{text-align:right}.dl-value{font-weight:bold}.metric-value-bad{color:var(--app-color-performance-bad)}.metric-value-good{color:var(--app-color-performance-good)}.insight-entry{font:var(--sys-typescale-body4-medium);padding-block:var(--sys-size-3);display:flex;align-items:center}.image-ref{display:inline-flex;align-items:center;&:not(:empty){padding-top:var(--sys-size-5)}}.element-img{width:var(--sys-size-13);height:var(--sys-size-13);object-fit:cover;border:var(--sys-size-1) solid var(--sys-color-divider);background:var(--sys-color-divider) -0.054px -12px /100.239% 148.936% no-repeat;margin-right:var(--sys-size-5)}.element-img-details{font:var(--sys-typescale-body4-regular);display:flex;flex-direction:column;word-break:break-all;.element-img-details-size{color:var(--color-text-secondary)}}::slotted(*){font:var(--sys-typescale-body4-regular)}.insight-savings{font:var(--sys-typescale-body4-medium);color:var(--sys-color-green)}ul.insight-icon-results{list-style:none;margin:0;padding:0;li{display:flex;align-items:flex-start;justify-content:flex-start;gap:var(--sys-size-3);span{padding-top:2px}}}.timeline-link{cursor:pointer;text-decoration:underline;color:var(--sys-color-primary);background:none;border:none;padding:0;font:inherit}.timeline-link.invalid-link{color:var(--sys-color-state-disabled)}.insight-results:not(:last-child){border-bottom:var(--sys-size-1) solid var(--sys-color-divider);padding-bottom:var(--sys-size-5)}\n/*# sourceURL=baseInsightComponent.css */\n");class p extends Event{model;insightSetKey;static eventName="insightactivated";constructor(e,t){super(p.eventName,{bubbles:!0,composed:!0}),this.model=e,this.insightSetKey=t}}class g extends Event{static eventName="insightdeactivated";constructor(){super(g.eventName,{bubbles:!0,composed:!0})}}class v extends Event{bounds;static eventName="insightsethovered";constructor(e){super(v.eventName,{bubbles:!0,composed:!0}),this.bounds=e}}class y extends Event{bounds;static eventName="insightsetzoom";constructor(e){super(y.eventName,{bubbles:!0,composed:!0}),this.bounds=e}}class f extends Event{overlays;options;static eventName="insightprovideoverlays";constructor(e,t){super(f.eventName,{bubbles:!0,composed:!0}),this.overlays=e,this.options=t}}var b=Object.freeze({__proto__:null,InsightActivated:p,InsightDeactivated:g,InsightProvideOverlays:f,InsightSetHovered:v,InsightSetZoom:y});const{html:T}=s,S={estimatedSavings:"Est savings: {PH1}",estimatedSavingsTimingAndBytes:"Est savings: {PH1} & {PH2}",viewDetails:"View details for {PH1}"},R=e.i18n.registerUIStrings("panels/timeline/components/insights/BaseInsightComponent.ts",S),w=e.i18n.getLocalizedString.bind(void 0,R);class E extends HTMLElement{static litTagName=s.literal``;#e=this.attachShadow({mode:"open"});#t=!1;#s=null;get model(){return this.#s}data={bounds:null,insightSetKey:null};#i=this.#n.bind(this);sharedTableState={selectedRowEl:null,selectionIsSticky:!1};#o=null;scheduleRender(){t.ScheduledRender.scheduleRender(this,this.#i)}connectedCallback(){this.#e.adoptedStyleSheets.push(u),this.setAttribute("jslog",`${i.section(`timeline.insights.${this.internalName}`)}`),this.dataset.insightName=this.internalName}set selected(e){!this.#t&&e&&this.dispatchEvent(new f(this.getInitialOverlays(),{updateTraceWindow:!0})),this.#t=e,t.ScheduledRender.scheduleRender(this,this.#i)}get selected(){return this.#t}set model(e){this.#s=e,t.ScheduledRender.scheduleRender(this,this.#i)}set insightSetKey(e){this.data.insightSetKey=e,t.ScheduledRender.scheduleRender(this,this.#i)}get bounds(){return this.data.bounds}set bounds(e){this.data.bounds=e,t.ScheduledRender.scheduleRender(this,this.#i)}#r(){this.#t?this.dispatchEvent(new g):this.data.insightSetKey&&(this.sharedTableState.selectedRowEl?.classList.remove("selected"),this.sharedTableState.selectedRowEl=null,this.sharedTableState.selectionIsSticky=!1,this.dispatchEvent(new p(this.model,this.data.insightSetKey)))}#a(e){const t=s.Directives.classMap({"insight-hover-icon":!0,active:e});return T`
+      <div class=${t} inert>
+        <devtools-button .data=${{variant:"icon",iconName:"chevron-down",size:"SMALL"}}
+      ></devtools-button>
+      </div>
+
+    `}#l(e){"Enter"!==e.key&&" "!==e.key||(e.preventDefault(),e.stopPropagation(),this.#r())}toggleTemporaryOverlays(e,t){this.#t&&this.dispatchEvent(new f(e??this.getInitialOverlays(),t))}getInitialOverlays(){return this.#o||(this.#o=this.createOverlays()),this.#o}#n(){if(!this.model)return;const e=this.renderContent();this.#d(e)}getEstimatedSavingsTime(){return null}getEstimatedSavingsBytes(){return null}#c(){const t=this.getEstimatedSavingsTime(),s=this.getEstimatedSavingsBytes();let i,n;return t&&(i=e.TimeUtilities.millisToString(t)),s&&(n=e.ByteUtilities.bytesToString(s)),i&&n?w(S.estimatedSavingsTimingAndBytes,{PH1:i,PH2:n}):i?w(S.estimatedSavings,{PH1:i}):n?w(S.estimatedSavings,{PH1:n}):null}#d(e){if(!this.#s)return void s.render(s.nothing,this.#e,{host:this});const t=s.Directives.classMap({insight:!0,closed:!this.#t}),n=this.#c(),o=T`
+      <div class=${t}>
+        <header @click=${this.#r}
+          @keydown=${this.#l}
+          jslog=${i.action(`timeline.toggle-insight.${this.internalName}`).track({click:!0})}
+          tabIndex="0"
+          role="button"
+          aria-expanded=${this.#t}
+          aria-label=${w(S.viewDetails,{PH1:this.#s.title})}
+        >
+          ${this.#a(this.#t)}
+          <h3 class="insight-title">${this.#s?.title}</h3>
+          ${n?T`
+            <slot name="insight-savings" class="insight-savings">
+              ${n}
+            </slot>
+          </div>`:s.nothing}
+        </header>
+        ${this.#t?T`
+          <div class="insight-body">
+            <div class="insight-description">${function(e){const t=r.Marked.lexer(e);return m`<devtools-markdown-view .data=${{tokens:t}}></devtools-markdown-view>`}(this.#s.description)}</div>
+            <div class="insight-content">${e}</div>
+          </div>`:s.nothing}
+      </div>
+    `;s.render(o,this.#e,{host:this}),this.#t&&requestAnimationFrame((()=>requestAnimationFrame((()=>this.scrollIntoViewIfNeeded()))))}}var L=Object.freeze({__proto__:null,BaseInsightComponent:E});const{html:_}=s;class N extends Event{event;static eventName="eventreferenceclick";constructor(e){super(N.eventName,{bubbles:!0,composed:!0}),this.event=e}}class k extends HTMLElement{#h=this.attachShadow({mode:"open"});#i=this.#n.bind(this);#m=null;#u=null;connectedCallback(){this.#h.adoptedStyleSheets=[u]}set text(e){this.#m=e,t.ScheduledRender.scheduleRender(this,this.#i)}set event(e){this.#u=e,t.ScheduledRender.scheduleRender(this,this.#i)}#n(){this.#m&&this.#u&&s.render(_`
+      <button type="button" class="timeline-link" @click=${e=>{e.stopPropagation(),this.#u&&this.dispatchEvent(new N(this.#u))}}>${this.#m}</button>
+    `,this.#h,{host:this})}}function D(e){let t,s;return l.Types.Events.isSyntheticNetworkRequest(e)?(s=d.Helpers.shortenUrl(new URL(e.args.data.url)),t=e.args.data.url):n.TypeScriptUtilities.assertNever(e,`unsupported event in eventRef: ${e.name}`),_`<devtools-performance-event-ref
+    .event=${e}
+    .text=${s}
+    title=${t}
+  ></devtools-performance-event-ref>`}class I extends HTMLElement{#h=this.attachShadow({mode:"open"});#i=this.#n.bind(this);#p;connectedCallback(){this.#h.adoptedStyleSheets=[u]}set request(e){this.#p=e,t.ScheduledRender.scheduleRender(this,this.#i)}#n(){this.#p&&s.render(_`
+      <div class="image-ref">
+        ${this.#p.args.data.mimeType.includes("image")?_`
+          <img
+            class="element-img"
+            src=${this.#p.args.data.url}
+            @error=${$}/>
+        `:s.nothing}
+        <span class="element-img-details">
+          ${D(this.#p)}
+          <span class="element-img-details-size">${e.ByteUtilities.bytesToString(this.#p.args.data.decodedBodyLength??0)}</span>
+        </span>
+      </div>
+    `,this.#h,{host:this})}}function $(e){e.target.style.display="none"}function C(e){return _`
+    <devtools-performance-image-ref
+      .request=${e}
+    ></devtools-performance-image-ref>
+  `}customElements.define("devtools-performance-event-ref",k),customElements.define("devtools-performance-image-ref",I);var z=Object.freeze({__proto__:null,EventReferenceClick:N,eventRef:D,imageRef:C});const{html:M}=s,O={worstLayoutShiftCluster:"Worst layout shift cluster",worstCluster:"Worst cluster",layoutShiftCluster:"Layout shift cluster @ {PH1}",topCulprits:"Top layout shift culprits",injectedIframe:"Injected iframe",fontRequest:"Font request",animation:"Animation",unsizedImages:"Unsized Images",noLayoutShifts:"No layout shifts",noCulprits:"Could not detect any layout shift culprits"},P=e.i18n.registerUIStrings("panels/timeline/components/insights/CLSCulprits.ts",O),x=e.i18n.getLocalizedString.bind(void 0,P);class H extends E{static litTagName=s.literal`devtools-performance-cls-culprits`;internalName="cls-culprits";createOverlays(){const e=(this.model?.clusters.toSorted(((e,t)=>t.clusterCumulativeScore-e.clusterCumulativeScore))??[])[0];if(!e)return[];const t=l.Types.Timing.MicroSeconds(e.dur??0),s=l.Types.Timing.MicroSeconds(e.ts+t),i=M`<div>${x(O.worstLayoutShiftCluster)}</div>`;return[{type:"TIMESPAN_BREAKDOWN",sections:[{bounds:{min:e.ts,range:t,max:s},label:i,showDuration:!1}],entry:e.events[0],renderLocation:"ABOVE_EVENT"}]}getTopCulprits(e,t){const s=[];if(3===s.length)return s;const i=e.events;for(const e of i){if(3===s.length)break;const i=t.get(e);if(!i)continue;const n=i.fontRequests,o=i.iframeIds,r=i.nonCompositedAnimations,a=i.unsizedImages;for(let e=0;e<n.length&&s.length<3;e++)s.push(x(O.fontRequest));for(let e=0;e<o.length&&s.length<3;e++)s.push(x(O.injectedIframe));for(let e=0;e<r.length&&s.length<3;e++)s.push(x(O.animation));for(let e=0;e<a.length&&s.length<3;e++)s.push(x(O.unsizedImages))}return s.slice(0,3)}#g(e){this.dispatchEvent(new N(e))}renderContent(){if(!this.model||!this.bounds)return s.nothing;if(!this.model.clusters.length||!this.model.worstCluster)return M`<div class="insight-section">${x(O.noLayoutShifts)}</div>`;const t=this.model.worstCluster,i=this.model.shifts,n=this.getTopCulprits(t,i);if(0===n.length)return M`<div class="insight-section">${x(O.noCulprits)}</div>`;const o=l.Types.Timing.MicroSeconds(t.ts-this.bounds.min),r=e.TimeUtilities.formatMicroSecondsTime(o);return M`
+      <div class="insight-section">
+        <span class="worst-cluster">${x(O.worstCluster)}: <button type="button" class="timeline-link" @click=${()=>this.#g(t)}>${x(O.layoutShiftCluster,{PH1:r})}</button></span>
+          <p class="list-title">${x(O.topCulprits)}:</p>
+          <ul class="worst-culprits">
+            ${n.map((e=>M`
+                <li>${e}</li>
+              `))}
+          </ul>
+      </div>`}}customElements.define("devtools-performance-cls-culprits",H);var q=Object.freeze({__proto__:null,CLSCulprits:H});const{html:F}=s,A={passingRedirects:"Avoids redirects",failedRedirects:"Had redirects",passingServerResponseTime:"Server responds quickly",failedServerResponseTime:"Server responded slowly",passingTextCompression:"Applies text compression",failedTextCompression:"No compression applied",redirectsLabel:"Redirects",serverResponseTimeLabel:"Server response time",uncompressedDownload:"Uncompressed download",successAriaLabel:"Insight check passed: {PH1}",failedAriaLabel:"Insight check failed: {PH1}"},B=e.i18n.registerUIStrings("panels/timeline/components/insights/DocumentLatency.ts",A),U=e.i18n.getLocalizedString.bind(void 0,B);class j extends E{static litTagName=s.literal`devtools-performance-document-latency`;internalName="document-latency";#v(e,t,s){const i=e?"check-circle":"clear",n=e?U(A.successAriaLabel,{PH1:t}):U(A.failedAriaLabel,{PH1:s});return F`
+      <devtools-icon
+        aria-label=${n}
+        name=${i}
+        class=${e?"metric-value-good":"metric-value-bad"}
+      ></devtools-icon>
+      <span>${e?t:s}</span>
+    `}createOverlays(){if(!this.model?.data?.documentRequest)return[];const e=[],t=this.model.data.documentRequest,s=l.Helpers.Timing.millisecondsToMicroseconds(this.model.data.redirectDuration),i=[];if(this.model.data.redirectDuration){const n=l.Helpers.Timing.traceWindowFromMicroSeconds(t.ts,t.ts+s);i.push({bounds:n,label:U(A.redirectsLabel),showDuration:!0}),e.push({type:"CANDY_STRIPED_TIME_RANGE",bounds:n,entry:t})}if(this.model.data.serverResponseTooSlow){const e=l.Helpers.Timing.millisecondsToMicroseconds(this.model.data.serverResponseTime),s=t.args.data.timing?.sendEnd??l.Types.Timing.MilliSeconds(0),n=l.Helpers.Timing.millisecondsToMicroseconds(s),o=l.Helpers.Timing.traceWindowFromMicroSeconds(n,n+e);i.push({bounds:o,label:U(A.serverResponseTimeLabel),showDuration:!0})}if(this.model.data.uncompressedResponseBytes){const s=l.Helpers.Timing.traceWindowFromMicroSeconds(t.args.data.syntheticData.downloadStart,t.args.data.syntheticData.downloadStart+t.args.data.syntheticData.download);i.push({bounds:s,label:U(A.uncompressedDownload),showDuration:!0}),e.push({type:"CANDY_STRIPED_TIME_RANGE",bounds:s,entry:t})}return i.length&&e.push({type:"TIMESPAN_BREAKDOWN",sections:i,entry:this.model.data.documentRequest,renderLocation:"BELOW_EVENT"}),e.push({type:"ENTRY_SELECTED",entry:this.model.data.documentRequest}),e}getEstimatedSavingsTime(){return this.model?.metricSavings?.FCP??null}getEstimatedSavingsBytes(){return this.model?.data?.uncompressedResponseBytes??null}renderContent(){return this.model?.data?F`
+      <div class="insight-section">
+        <ul class="insight-results insight-icon-results">
+          <li class="insight-entry">
+            ${this.#v(0===this.model.data.redirectDuration,U(A.passingRedirects),U(A.failedRedirects))}
+          </li>
+          <li class="insight-entry">
+            ${this.#v(!this.model.data.serverResponseTooSlow,U(A.passingServerResponseTime),U(A.failedServerResponseTime))}
+          </li>
+          <li class="insight-entry">
+            ${this.#v(0===this.model.data.uncompressedResponseBytes,U(A.passingTextCompression),U(A.failedTextCompression))}
+          </li>
+        </ul>
+      </div>`:s.nothing}}customElements.define("devtools-performance-document-latency",j);var W=Object.freeze({__proto__:null,DocumentLatency:j});const K={noLargeRenderTasks:"No rendering tasks impacted by DOM size"},Y=e.i18n.registerUIStrings("panels/timeline/components/insights/DOMSize.ts",K),V=e.i18n.getLocalizedString.bind(void 0,Y),{html:G}=s;class J extends E{static litTagName=s.literal`devtools-performance-dom-size`;internalName="dom-size";createOverlays(){if(!this.model)return[];return[...this.model.largeStyleRecalcs,...this.model.largeLayoutUpdates].map((e=>({type:"ENTRY_OUTLINE",entry:e,outlineReason:"ERROR"})))}renderContent(){return this.model?this.model.largeStyleRecalcs.length||this.model.largeLayoutUpdates.length?s.nothing:G`<div class="insight-section">${V(K.noLargeRenderTasks)}</div>`:s.nothing}}customElements.define("devtools-performance-dom-size",J);var Z=Object.freeze({__proto__:null,DOMSize:J});const Q=new CSSStyleSheet;Q.replaceSync('table{width:100%;padding:5px 0;border-collapse:collapse}thead{white-space:nowrap}table tr > *{text-align:right}table tr > *:first-child{text-align:left}table.interactive tbody tr{cursor:pointer}table.interactive tbody tr:hover,\ntable.interactive tbody tr.selected{background-color:var(--sys-color-state-hover-on-subtle)}table thead th{font:var(--sys-typescale-body4-medium)}table tbody th{font-weight:normal}table th[scope="row"]{padding:3px 0;word-break:break-word}\n/*# sourceURL=table.css */\n');const{html:X}=s;class ee extends HTMLElement{#h=this.attachShadow({mode:"open"});#i=this.#n.bind(this);#y;#f;#b;#T;#S=!1;#R=null;set data(e){this.#y=e.insight,this.#f=e.insight.sharedTableState,this.#b=e.headers,this.#T=e.rows,this.#S=this.#T.some((e=>e.overlays)),t.ScheduledRender.scheduleRender(this,this.#i)}connectedCallback(){this.#h.adoptedStyleSheets.push(Q),t.ScheduledRender.scheduleRender(this,this.#i)}#w(e){if(!(e.target instanceof HTMLElement))return;const t=e.target.closest("tr");if(!t||!t.parentElement)return;const s=[...t.parentElement.children].indexOf(t);-1!==s&&s!==this.#R&&(this.#R=s,this.#E(t,s,{isHover:!0}))}#L(e){if(!(e.target instanceof HTMLElement))return;const t=e.target.closest("tr");if(!t||!t.parentElement)return;const s=[...t.parentElement.children].indexOf(t);if(-1===s)return;const i=this.#T?.[s]?.overlays;1!==i?.length||"ENTRY_OUTLINE"!==i[0].type?this.#E(t,s,{sticky:!0}):this.dispatchEvent(new N(i[0].entry))}#_(){this.#R=null,this.#E(null,null)}#E(e,t,s={}){if(this.#T&&this.#f&&this.#y&&(!this.#f.selectionIsSticky||s.sticky)){if(this.#f.selectionIsSticky&&e===this.#f.selectedRowEl&&(e=null,s.sticky=!1),e&&null!==t){const e=this.#T[t].overlays;e&&this.#y.toggleTemporaryOverlays(e,{updateTraceWindow:!s.isHover})}else this.#y.toggleTemporaryOverlays(null,{updateTraceWindow:!1});this.#f.selectedRowEl?.classList.remove("selected"),e?.classList.add("selected"),this.#f.selectedRowEl=e,this.#f.selectionIsSticky=s.sticky??!1}}async#n(){this.#b&&this.#T&&s.render(X`<table
+          class=${s.Directives.classMap({interactive:this.#S})}
+          @mouseleave=${this.#S?this.#_:null}>
+        <thead>
+          <tr>
+          ${this.#b.map((e=>X`<th scope="col">${e}</th>`))}
+          </tr>
+        </thead>
+        <tbody
+          @mouseover=${this.#S?this.#w:null}
+          @click=${this.#S?this.#L:null}
+        >
+          ${this.#T.map((e=>{const t=e.values.map(((e,t)=>0===t?X`<th scope="row">${e}</th>`:X`<td>${e}</td>`));return X`<tr>${t}</tr>`}))}
+        </tbody>
+      </table>`,this.#h,{host:this})}}customElements.define("devtools-performance-table",ee);var te=Object.freeze({__proto__:null,Table:ee});const{html:se}=s,ie={fontColumn:"Font",wastedTimeColumn:"Wasted time"},ne=e.i18n.registerUIStrings("panels/timeline/components/insights/FontDisplay.ts",ie),oe=e.i18n.getLocalizedString.bind(void 0,ne);class re extends E{static litTagName=s.literal`devtools-performance-font-display`;internalName="font-display";#N=new Map;createOverlays(){if(this.#N.clear(),!this.model)return[];for(const e of this.model.fonts)this.#N.set(e.request,{type:"ENTRY_OUTLINE",entry:e.request,outlineReason:e.wastedTime?"ERROR":"INFO"});return[...this.#N.values()]}getEstimatedSavingsTime(){return this.model?.metricSavings?.FCP??null}renderContent(){return this.model?se`
+      <div class="insight-section">
+        ${se`<devtools-performance-table
+          .data=${{insight:this,headers:[oe(ie.fontColumn),"font-display",oe(ie.wastedTimeColumn)],rows:this.model.fonts.map((t=>({values:[D(t.request),t.display,e.TimeUtilities.millisToString(t.wastedTime)],overlays:[this.#N.get(t.request)]})))}}>
+        </devtools-performance-table>`}
+      </div>`:s.nothing}}customElements.define("devtools-performance-font-display",re);var ae=Object.freeze({__proto__:null,FontDisplay:re});var le=Object.freeze({__proto__:null,shouldRenderForCategory:function(e){return e.activeCategory===l.Insights.Types.InsightCategory.ALL||e.activeCategory===e.insightCategory}});const{html:de}=s,ce={optimizeFile:"Optimize file size",others:"{PH1} others",noOptimizableImages:"No optimizable images"},he=e.i18n.registerUIStrings("panels/timeline/components/insights/ImageDelivery.ts",ce),me=e.i18n.getLocalizedString.bind(void 0,he);class ue extends E{static litTagName=s.literal`devtools-performance-image-delivery`;internalName="image-delivery";createOverlays(){if(!this.model)return[];const{optimizableImages:e}=this.model;return e.map((e=>this.#k(e.request)))}#k(e){return{type:"ENTRY_OUTLINE",entry:e,outlineReason:"ERROR"}}getEstimatedSavingsBytes(){return this.model?.totalByteSavings??null}renderContent(){if(!this.model)return s.nothing;const e=[...this.model.optimizableImages].sort(((e,t)=>t.request.args.data.decodedBodyLength-e.request.args.data.decodedBodyLength)),t=e.splice(10),i=e.map((e=>({values:[C(e.request)],overlays:[this.#k(e.request)]})));if(t.length>0){const e=t.length>1?me(ce.others,{PH1:t.length}):C(t[0].request);i.push({values:[e],overlays:t.map((e=>this.#k(e.request)))})}return i.length?de`
+      <div class="insight-section">
+        <devtools-performance-table
+          .data=${{insight:this,headers:[me(ce.optimizeFile)],rows:i}}>
+        </devtools-performance-table>
+      </div>
+    `:de`<div class="insight-section">${me(ce.noOptimizableImages)}</div>`}}customElements.define("devtools-performance-image-delivery",ue);var pe=Object.freeze({__proto__:null,ImageDelivery:ue});const{html:ge}=s,ve={phase:"Phase",duration:"Duration",inputDelay:"Input delay",processingDuration:"Processing duration",presentationDelay:"Presentation delay",noInteractions:"No interactions detected"},ye=e.i18n.registerUIStrings("panels/timeline/components/insights/InteractionToNextPaint.ts",ve),fe=e.i18n.getLocalizedString.bind(void 0,ye);class be extends E{static litTagName=s.literal`devtools-performance-inp`;internalName="inp";createOverlays(){if(!this.model)return[];const e=this.model.longestInteractionEvent;return e?this.#D(e):[]}#D(e,t=-1){const s=l.Helpers.Timing.traceWindowFromMicroSeconds(e.ts,e.ts+e.inputDelay),i=l.Helpers.Timing.traceWindowFromMicroSeconds(s.max,s.max+e.mainThreadHandling),n=l.Helpers.Timing.traceWindowFromMicroSeconds(i.max,i.max+e.presentationDelay);let o=[{bounds:s,label:fe(ve.inputDelay),showDuration:!0},{bounds:i,label:fe(ve.processingDuration),showDuration:!0},{bounds:n,label:fe(ve.presentationDelay),showDuration:!0}];return-1!==t&&(o=[o[t]]),[{type:"TIMESPAN_BREAKDOWN",sections:o,renderLocation:"BELOW_EVENT",entry:e}]}renderContent(){const t=this.model?.longestInteractionEvent;if(!t)return ge`<div class="insight-section">${fe(ve.noInteractions)}</div>`;const s=t=>e.TimeUtilities.millisToString(n.Timing.microSecondsToMilliSeconds(t));return ge`
+      <div class="insight-section">
+        ${ge`<devtools-performance-table
+          .data=${{insight:this,headers:[fe(ve.phase),fe(ve.duration)],rows:[{values:[fe(ve.inputDelay),s(t.inputDelay)],overlays:this.#D(t,0)},{values:[fe(ve.processingDuration),s(t.mainThreadHandling)],overlays:this.#D(t,1)},{values:[fe(ve.presentationDelay),s(t.presentationDelay)],overlays:this.#D(t,2)}]}}>
+        </devtools-performance-table>`}
+      </div>`}}customElements.define("devtools-performance-inp",be);var Te=Object.freeze({__proto__:null,InteractionToNextPaint:be});const{html:Se}=s,Re={lcpLoadDelay:"LCP image loaded {PH1} after earliest start point.",fetchPriorityApplied:"fetchpriority=high applied",requestDiscoverable:"Request is discoverable in initial document",lazyLoadNotApplied:"lazy load not applied",successAriaLabel:"Insight check passed: {PH1}",failedAriaLabel:"Insight check failed: {PH1}",noLcp:"No LCP detected",noLcpResource:"No LCP resource detected because the LCP is not an image"},we=e.i18n.registerUIStrings("panels/timeline/components/insights/LCPDiscovery.ts",Re),Ee=e.i18n.getLocalizedString.bind(void 0,we);function Le(e){if(void 0===e.lcpRequest)return null;const t=e.shouldIncreasePriorityHint,s=e.shouldPreloadImage,i=e.shouldRemoveLazyLoading;if(!(void 0!==t&&void 0!==s&&void 0!==i))return null;const n={shouldIncreasePriorityHint:t,shouldPreloadImage:s,shouldRemoveLazyLoading:i,request:e.lcpRequest,discoveryDelay:null,estimatedSavings:e.metricSavings?.LCP??null};if(e.earliestDiscoveryTimeTs&&e.lcpRequest){const t=e.lcpRequest.ts-e.earliestDiscoveryTimeTs;n.discoveryDelay=l.Types.Timing.MicroSeconds(t)}return n}class _e extends E{static litTagName=s.literal`devtools-performance-lcp-discovery`;internalName="lcp-discovery";#I(e,t){const s=e?"clear":"check-circle",i=Ee(e?Re.failedAriaLabel:Re.successAriaLabel,{PH1:t});return Se`
+      <devtools-icon
+        aria-label=${i}
+        name=${s}
+        class=${e?"metric-value-bad":"metric-value-good"}
+      ></devtools-icon>
+    `}#$(t){const s=document.createElement("span");return s.classList.add("discovery-time-ms"),s.innerText=e.TimeUtilities.formatMicroSecondsTime(t),e.i18n.getFormatLocalizedString(we,Re.lcpLoadDelay,{PH1:s})}createOverlays(){if(!this.model)return[];const e=Le(this.model);if(!e||!e.discoveryDelay)return[];const t=l.Helpers.Timing.traceWindowFromMicroSeconds(l.Types.Timing.MicroSeconds(e.request.ts-e.discoveryDelay),e.request.ts),s=Se`<div class="discovery-delay"> ${this.#$(t.range)}</div>`;return[{type:"ENTRY_OUTLINE",entry:e.request,outlineReason:"ERROR"},{type:"CANDY_STRIPED_TIME_RANGE",bounds:t,entry:e.request},{type:"TIMESPAN_BREAKDOWN",sections:[{bounds:t,label:s,showDuration:!1}],entry:e.request,renderLocation:"ABOVE_EVENT"}]}getEstimatedSavingsTime(){return this.model?Le(this.model)?.estimatedSavings??null:null}renderContent(){if(!this.model)return s.nothing;const e=Le(this.model);return e?Se`
+      <div class="insight-section">
+        <div class="insight-results">
+          <ul class="insight-icon-results">
+            <li class="insight-entry">
+              ${this.#I(e.shouldIncreasePriorityHint,Ee(Re.fetchPriorityApplied))}
+              <span>${Ee(Re.fetchPriorityApplied)}</span>
+            </li>
+            <li class="insight-entry">
+              ${this.#I(e.shouldPreloadImage,Ee(Re.requestDiscoverable))}
+              <span>${Ee(Re.requestDiscoverable)}</span>
+            </li>
+            <li class="insight-entry">
+              ${this.#I(e.shouldRemoveLazyLoading,Ee(Re.lazyLoadNotApplied))}
+              <span>${Ee(Re.lazyLoadNotApplied)}</span>
+            </li>
+          </ul>
+        </div>
+        ${C(e.request)}
+      </div>`:this.model.lcpEvent?Se`<div class="insight-section">${Ee(Re.noLcpResource)}</div>`:Se`<div class="insight-section">${Ee(Re.noLcp)}</div>`}}customElements.define("devtools-performance-lcp-discovery",_e);var Ne=Object.freeze({__proto__:null,LCPDiscovery:_e});const{html:ke}=s,De={timeToFirstByte:"Time to first byte",resourceLoadDelay:"Resource load delay",resourceLoadDuration:"Resource load duration",elementRenderDelay:"Element render delay",phase:"Phase",percentLCP:"% of LCP",noLcp:"No LCP detected"},Ie=e.i18n.registerUIStrings("panels/timeline/components/insights/LCPPhases.ts",De),$e=e.i18n.getLocalizedString.bind(void 0,Ie);class Ce extends E{static litTagName=s.literal`devtools-performance-lcp-by-phases`;internalName="lcp-by-phase";#C=null;#z(){if(!this.model)return[];const e=this.model.lcpMs,t=this.model.phases;if(!e||!t)return[];const{ttfb:s,loadDelay:i,loadTime:n,renderDelay:o}=t;if(i&&n){return[{phase:$e(De.timeToFirstByte),timing:s,percent:`${(100*s/e).toFixed(0)}%`},{phase:$e(De.resourceLoadDelay),timing:i,percent:`${(100*i/e).toFixed(0)}%`},{phase:$e(De.resourceLoadDuration),timing:n,percent:`${(100*n/e).toFixed(0)}%`},{phase:$e(De.elementRenderDelay),timing:o,percent:`${(100*o/e).toFixed(0)}%`}]}return[{phase:$e(De.timeToFirstByte),timing:s,percent:`${(100*s/e).toFixed(0)}%`},{phase:$e(De.elementRenderDelay),timing:o,percent:`${(100*o/e).toFixed(0)}%`}]}createOverlays(){if(this.#C=null,!this.model)return[];const e=this.model.phases,t=this.model.lcpTs;if(!e||!t)return[];const s=l.Types.Timing.MicroSeconds(l.Helpers.Timing.millisecondsToMicroseconds(t)),i=[];this.model.lcpRequest&&i.push({type:"ENTRY_OUTLINE",entry:this.model.lcpRequest,outlineReason:"INFO"});const n=[];if(e?.loadDelay||e?.loadTime){if(e?.loadDelay&&e?.loadTime){const t=l.Types.Timing.MicroSeconds(s-l.Helpers.Timing.millisecondsToMicroseconds(e.renderDelay)),i=l.Helpers.Timing.traceWindowFromMicroSeconds(t,s),o=l.Types.Timing.MicroSeconds(t-l.Helpers.Timing.millisecondsToMicroseconds(e.loadTime)),r=l.Helpers.Timing.traceWindowFromMicroSeconds(o,t),a=l.Types.Timing.MicroSeconds(o-l.Helpers.Timing.millisecondsToMicroseconds(e.loadDelay)),d=l.Helpers.Timing.traceWindowFromMicroSeconds(a,o),c=l.Types.Timing.MicroSeconds(a-l.Helpers.Timing.millisecondsToMicroseconds(e.ttfb)),h=l.Helpers.Timing.traceWindowFromMicroSeconds(c,a);n.push({bounds:h,label:$e(De.timeToFirstByte),showDuration:!0},{bounds:d,label:$e(De.resourceLoadDelay),showDuration:!0},{bounds:r,label:$e(De.resourceLoadDuration),showDuration:!0},{bounds:i,label:$e(De.elementRenderDelay),showDuration:!0})}}else{const t=l.Types.Timing.MicroSeconds(s-l.Helpers.Timing.millisecondsToMicroseconds(e.renderDelay)),i=l.Helpers.Timing.traceWindowFromMicroSeconds(t,s),o=l.Types.Timing.MicroSeconds(t-l.Helpers.Timing.millisecondsToMicroseconds(e.ttfb)),r=l.Helpers.Timing.traceWindowFromMicroSeconds(o,t);n.push({bounds:r,label:$e(De.timeToFirstByte),showDuration:!0},{bounds:i,label:$e(De.elementRenderDelay),showDuration:!0})}return this.#C={type:"TIMESPAN_BREAKDOWN",sections:n},i.push(this.#C),i}renderContent(){if(!this.model)return s.nothing;const e=this.#z();if(!e.length)return ke`<div class="insight-section">${$e(De.noLcp)}</div>`;const t=e.map((({phase:e,percent:t})=>{const s=this.#C?.sections.find((t=>e===t.label));return{values:[e,t],overlays:s&&[{type:"TIMESPAN_BREAKDOWN",sections:[s]}]}}));return ke`
+      <div class="insight-section">
+        ${ke`<devtools-performance-table
+          .data=${{insight:this,headers:[$e(De.phase),$e(De.percentLCP)],rows:t}}>
+        </devtools-performance-table>`}
+      </div>`}}customElements.define("devtools-performance-lcp-by-phases",Ce);var ze=Object.freeze({__proto__:null,LCPPhases:Ce});const{html:Me}=s;class Oe extends HTMLElement{#h=this.attachShadow({mode:"open"});#i=this.#n.bind(this);#M;#O;set data(e){this.#M=e.backendNodeId,this.#O=e.options,t.ScheduledRender.scheduleRender(this,this.#i)}async#P(){if(void 0===this.#M)return;const e=h.TargetManager.TargetManager.instance().primaryPageTarget();if(!e)return;const t=e.model(h.DOMModel.DOMModel);if(!t)return;const s=new Set([this.#M]),i=await t.pushNodesByBackendIdsToFrontend(s);if(!i)return;const n=i.get(this.#M);return n?c.Linkifier.Linkifier.linkify(n,this.#O):void 0}async#n(){const e=await this.#P();s.render(Me`<div class='node-link'>
+        ${e}
+      </div>`,this.#h,{host:this})}}customElements.define("devtools-performance-node-link",Oe);var Pe=Object.freeze({__proto__:null,NodeLink:Oe});const{html:xe}=s,He={renderBlockingRequest:"Request",duration:"Duration",noRenderBlocking:"No render blocking requests for this navigation"},qe=e.i18n.registerUIStrings("panels/timeline/components/insights/RenderBlocking.ts",He),Fe=e.i18n.getLocalizedString.bind(void 0,qe);class Ae extends E{static litTagName=s.literal`devtools-performance-render-blocking-requests`;internalName="render-blocking-requests";createOverlays(){return this.model?this.model.renderBlockingRequests.map((e=>this.#k(e))):[]}#k(e){return{type:"ENTRY_OUTLINE",entry:e,outlineReason:"ERROR"}}getEstimatedSavingsTime(){return this.model?.metricSavings?.FCP??null}renderContent(){if(!this.model)return s.nothing;const t=this.model.renderBlockingRequests.slice(0,3);return t.length?xe`
+      <div class="insight-section">
+        <devtools-performance-table
+          .data=${{insight:this,headers:[Fe(He.renderBlockingRequest),Fe(He.duration)],rows:t.map((t=>({values:[D(t),e.TimeUtilities.millisToString(n.Timing.microSecondsToMilliSeconds(t.dur))],overlays:[this.#k(t)]})))}}>
+        </devtools-performance-table>
+      </div>
+    `:xe`<div class="insight-section">${Fe(He.noRenderBlocking)}</div>`}}customElements.define("devtools-performance-render-blocking-requests",Ae);var Be=Object.freeze({__proto__:null,RenderBlocking:Ae});const{html:Ue}=s,je={matchAttempts:"Match attempts",matchCount:"Match count",elapsed:"Elapsed time",topSelectors:"Top selectors",total:"Total",enableSelectorData:"No CSS selector data was found. CSS selector stats need to be enabled in the performance panel settings."},We=e.i18n.registerUIStrings("panels/timeline/components/insights/SlowCSSSelector.ts",je),Ke=e.i18n.getLocalizedString.bind(void 0,We);class Ye extends E{static litTagName=s.literal`devtools-performance-slow-css-selector`;internalName="slow-css-selector";#x=new Map;createOverlays(){return[]}async toSourceFileLocation(e,t){if(!e)return;const s=e.styleSheetHeaderForId(t.style_sheet_id);if(!s||!s.resourceURL())return;const i=JSON.stringify({selectorText:t.selector,styleSheetId:t.style_sheet_id});let n=this.#x.get(i);if(!n){const s=await e.agent.invoke_getLocationForSelector({selectorText:t.selector,styleSheetId:t.style_sheet_id});if(s.getError()||!s.ranges)return;n=s.ranges,this.#x.set(i,n)}return n.map(((e,t)=>({url:s.resourceURL(),lineNumber:e.startLine,columnNumber:e.startColumn,linkText:`[${t+1}]`,title:`${s.id} line ${e.startLine+1}:${e.startColumn+1}`})))}async getSelectorLinks(e,t){if(!e)return s.nothing;if(!t.style_sheet_id)return s.nothing;const i=await this.toSourceFileLocation(e,t);if(!i)return s.nothing;return Ue`
+    ${i.map(((e,t)=>{const s=t!==i.length-1?", ":"";return Ue`<devtools-linkifier .data=${e}></devtools-linkifier>${s}`}))}`}renderContent(){if(!this.model)return s.nothing;const t=h.TargetManager.TargetManager.instance().primaryPageTarget(),i=t?.model(h.CSSModel.CSSModel);if(!this.model.topMatchAttempts.length&&!this.model.topElapsedMs.length)return Ue`<div class="insight-section">${Ke(je.enableSelectorData)}</div>`;const o=[Ue`
+      <div class="insight-section">
+        <devtools-performance-table
+          .data=${{insight:this,headers:[Ke(je.total),""],rows:[{values:[Ke(je.elapsed),e.TimeUtilities.millisToString(this.model.totalElapsedMs)]},{values:[Ke(je.matchAttempts),this.model.totalMatchAttempts]},{values:[Ke(je.matchCount),this.model.totalMatchCount]}]}}>
+        </devtools-performance-table>
+      </div>
+    `];return this.model.topElapsedMs.length&&o.push(Ue`
+        <div class="insight-section">
+          <devtools-performance-table
+            .data=${{insight:this,headers:[Ke(je.topSelectors),Ke(je.elapsed)],rows:this.model.topElapsedMs.map((t=>{return{values:[Ue`${t.selector} ${s.Directives.until(this.getSelectorLinks(i,t))}`,(o=l.Types.Timing.MicroSeconds(t["elapsed (us)"]),e.TimeUtilities.millisToString(n.Timing.microSecondsToMilliSeconds(o)))]};var o}))}}>
+          </devtools-performance-table>
+        </div>
+      `),this.model.topMatchAttempts.length&&o.push(Ue`
+        <div class="insight-section">
+          <devtools-performance-table
+            .data=${{insight:this,headers:[Ke(je.topSelectors),Ke(je.matchAttempts)],rows:this.model.topMatchAttempts.map((e=>({values:[Ue`${e.selector} ${s.Directives.until(this.getSelectorLinks(i,e))}`,e.match_attempts]})))}}>
+          </devtools-performance-table>
+        </div>
+      `),Ue`${o}`}}customElements.define("devtools-performance-slow-css-selector",Ye);var Ve=Object.freeze({__proto__:null,SlowCSSSelector:Ye});const{html:Ge}=s,Je={columnThirdParty:"Third party",columnTransferSize:"Transfer size",columnBlockingTime:"Blocking time",noThirdParties:"No third parties found"},Ze=e.i18n.registerUIStrings("panels/timeline/components/insights/ThirdParties.ts",Je),Qe=e.i18n.getLocalizedString.bind(void 0,Ze);class Xe extends E{static litTagName=s.literal`devtools-performance-third-parties`;internalName="third-parties";#H=new Map;createOverlays(){if(this.#H.clear(),!this.model)return[];const e=[];for(const[t,s]of this.model.requestsByEntity){if(t===this.model.firstPartyEntity)continue;const i=[];for(const t of s){const s={type:"ENTRY_OUTLINE",entry:t,outlineReason:"INFO"};i.push(s),e.push(s)}this.#H.set(t,i)}return e}renderContent(){if(!this.model)return s.nothing;const t=[...this.model.summaryByEntity.entries()].filter((e=>e[0]!==this.model?.firstPartyEntity));if(!t.length)return Ge`<div class="insight-section">${Qe(Je.noThirdParties)}</div>`;const i=t.sort(((e,t)=>t[1].transferSize-e[1].transferSize)).slice(0,6),o=t.sort(((e,t)=>t[1].mainThreadTime-e[1].mainThreadTime)).slice(0,6),r=[];return i.length&&r.push(Ge`
+        <div class="insight-section">
+          <devtools-performance-table
+            .data=${{insight:this,headers:[Qe(Je.columnThirdParty),Qe(Je.columnTransferSize)],rows:i.map((([t,s])=>({values:[t.name,e.ByteUtilities.bytesToString(s.transferSize)],overlays:this.#H.get(t)})))}}>
+          </devtools-performance-table>
+        </div>
+      `),o.length&&r.push(Ge`
+        <div class="insight-section">
+          <devtools-performance-table
+            .data=${{insight:this,headers:[Qe(Je.columnThirdParty),Qe(Je.columnBlockingTime)],rows:o.map((([t,s])=>({values:[t.name,e.TimeUtilities.millisToString(n.Timing.microSecondsToMilliSeconds(s.mainThreadTime))],overlays:this.#H.get(t)})))}}>
+          </devtools-performance-table>
+        </div>
+      `),Ge`${r}`}}customElements.define("devtools-performance-third-parties",Xe);var et=Object.freeze({__proto__:null,ThirdParties:Xe}),tt=Object.freeze({__proto__:null});const{html:st}=s;class it extends E{static litTagName=s.literal`devtools-performance-viewport`;internalName="viewport";createOverlays(){return[]}getEstimatedSavingsTime(){return this.model?.metricSavings?.INP??null}renderContent(){if(!this.model)return s.nothing;const e=this.model.viewportEvent?.args.data.node_id;return st`
+      <div>
+        ${void 0!==e?st`<devtools-performance-node-link
+          .data=${{backendNodeId:e,options:{tooltip:this.model.viewportEvent?.args.data.content}}}>
+        </devtools-performance-node-link>`:s.nothing}
+      </div>`}}customElements.define("devtools-performance-viewport",it);var nt=Object.freeze({__proto__:null,Viewport:it});export{L as BaseInsightComponent,q as CLSCulprits,Z as DOMSize,W as DocumentLatency,z as EventRef,ae as FontDisplay,le as Helpers,pe as ImageDelivery,Te as InteractionToNextPaint,Ne as LCPDiscovery,ze as LCPPhases,Pe as NodeLink,Be as RenderBlocking,b as SidebarInsight,Ve as SlowCSSSelector,te as Table,et as ThirdParties,tt as Types,nt as Viewport};

@@ -5,21 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright 2022 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-.clickable {
-  cursor: pointer;
-}
-
-devtools-icon {
-  vertical-align: text-bottom;
-  padding-left: 2px;
-}
-
+`.clickable{cursor:pointer}devtools-icon{vertical-align:text-bottom;padding-left:2px}
 /*# sourceURL=settingDeprecationWarning.css */
 `);
 

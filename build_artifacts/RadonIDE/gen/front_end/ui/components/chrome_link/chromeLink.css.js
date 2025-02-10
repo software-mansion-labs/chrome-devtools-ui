@@ -5,19 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright 2022 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-.link {
-  color: var(--sys-color-primary);
-  text-decoration: underline;
-  cursor: pointer;
-  outline-offset: 2px;
-}
-
+`.link{color:var(--sys-color-primary);text-decoration:underline;cursor:pointer;outline-offset:2px}
 /*# sourceURL=chromeLink.css */
 `);
 

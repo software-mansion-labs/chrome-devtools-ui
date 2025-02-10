@@ -1,6 +1,21 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as ReportView from './ReportView.js';
-export { ReportView };
-//# sourceMappingURL=report_view.js.map
+import*as e from"../../lit-html/lit-html.js";const t=new CSSStyleSheet;t.replaceSync(":host{display:block}.content{background-color:var(--sys-color-cdt-base-container);display:grid;grid-template-columns:min-content 1fr;user-select:text}.report-title{padding:12px 24px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid var(--sys-color-divider);color:var(--sys-color-on-surface);background-color:var(--sys-color-cdt-base-container);grid-column-start:span 2}\n/*# sourceURL=report.css */\n");const o=new CSSStyleSheet;o.replaceSync(":host{line-height:28px;margin:0 0 8px}.key{color:var(--sys-color-on-surface-subtle);padding:0 6px;text-align:right;white-space:pre;user-select:none}\n/*# sourceURL=reportKey.css */\n");const s=new CSSStyleSheet;s.replaceSync(":host{grid-column-start:span 2;min-width:min-content}.section{padding:12px;margin-left:18px;display:flex;flex-direction:row;align-items:center;flex:auto;overflow-wrap:break-word;overflow:hidden}\n/*# sourceURL=reportSection.css */\n");const r=new CSSStyleSheet;r.replaceSync(":host{grid-column-start:span 2}.section-divider{border-bottom:1px solid var(--sys-color-divider)}\n/*# sourceURL=reportSectionDivider.css */\n");const n=new CSSStyleSheet;n.replaceSync(":host{grid-column-start:span 2}.section-header{padding:12px;margin-left:18px;display:flex;flex-direction:row;align-items:center;flex:auto;text-overflow:ellipsis;overflow:hidden;font-weight:bold;color:var(--sys-color-on-surface);user-select:none}\n/*# sourceURL=reportSectionHeader.css */\n");const d=new CSSStyleSheet;d.replaceSync(":host{line-height:28px;margin:0 0 8px;min-width:150px}.value{color:var(--sys-color-on-surface);margin-inline-start:0;padding:0 6px;overflow-wrap:break-word}\n/*# sourceURL=reportValue.css */\n");const{html:i}=e;class l extends HTMLElement{#e=this.attachShadow({mode:"open"});#t="";set data({reportTitle:e}){this.#t=e,this.#o()}connectedCallback(){this.#e.adoptedStyleSheets=[t],this.#o()}#o(){e.render(i`
+      <div class="content">
+        ${this.#t?i`<div class="report-title">${this.#t}</div>`:e.nothing}
+        <slot></slot>
+      </div>
+    `,this.#e,{host:this})}}class a extends HTMLElement{#e=this.attachShadow({mode:"open"});connectedCallback(){this.#e.adoptedStyleSheets=[s],this.#o()}#o(){e.render(i`
+      <div class="section">
+        <slot></slot>
+      </div>
+    `,this.#e,{host:this})}}class c extends HTMLElement{#e=this.attachShadow({mode:"open"});connectedCallback(){this.#e.adoptedStyleSheets=[n],this.#o()}#o(){e.render(i`
+      <div class="section-header">
+        <slot></slot>
+      </div>
+    `,this.#e,{host:this})}}class h extends HTMLElement{#e=this.attachShadow({mode:"open"});connectedCallback(){this.#e.adoptedStyleSheets=[r],this.#o()}#o(){e.render(i`
+      <div class="section-divider">
+      </div>
+    `,this.#e,{host:this})}}class p extends HTMLElement{#e=this.attachShadow({mode:"open"});connectedCallback(){this.#e.adoptedStyleSheets=[o],this.#o()}#o(){e.render(i`
+      <div class="key"><slot></slot></div>
+    `,this.#e,{host:this})}}class S extends HTMLElement{#e=this.attachShadow({mode:"open"});connectedCallback(){this.#e.adoptedStyleSheets=[d],this.#o()}#o(){e.render(i`
+      <div class="value"><slot></slot></div>
+    `,this.#e,{host:this})}}customElements.define("devtools-report",l),customElements.define("devtools-report-section",a),customElements.define("devtools-report-section-header",c),customElements.define("devtools-report-key",p),customElements.define("devtools-report-value",S),customElements.define("devtools-report-divider",h);var w=Object.freeze({__proto__:null,Report:l,ReportKey:p,ReportSection:a,ReportSectionDivider:h,ReportSectionHeader:c,ReportValue:S});export{w as ReportView};

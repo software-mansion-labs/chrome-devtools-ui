@@ -1,6 +1,1 @@
-// Copyright 2024 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import * as ExtensionUI from './ExtensionUI.js';
-export { ExtensionUI, };
-//# sourceMappingURL=extensions.js.map
+import*as e from"../../../ui/legacy/theme_support/theme_support.js";var r=Object.freeze({__proto__:null,extensionEntryColor:function(r){let a="--ref-palette-blue70";switch(r.args.color){case"primary":a="--ref-palette-blue70";break;case"primary-light":a="--ref-palette-blue80";break;case"primary-dark":a="--ref-palette-blue60";break;case"secondary":a="--ref-palette-purple80";break;case"secondary-light":a="--ref-palette-purple90";break;case"secondary-dark":a="--ref-palette-purple70";break;case"tertiary":a="--ref-palette-green70";break;case"tertiary-light":a="--ref-palette-green80";break;case"tertiary-dark":a="--ref-palette-green60";break;case"warning":a="--ref-palette-yellow70";break;case"error":a="--ref-palette-error60"}return e.ThemeSupport.instance().getComputedValue(a)}});export{r as ExtensionUI};

@@ -5,20 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/**
- * Copyright 2019 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-.css-overview-panel {
-  overflow: hidden;
-}
-
-devtools-css-overview-start-view {
-  overflow: auto;
-}
-
+`.css-overview-panel{overflow:hidden}devtools-css-overview-start-view{overflow:auto}
 /*# sourceURL=cssOverview.css */
 `);
 

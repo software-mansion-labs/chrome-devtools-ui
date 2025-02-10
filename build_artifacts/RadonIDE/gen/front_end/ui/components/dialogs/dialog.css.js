@@ -5,86 +5,8 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`/*
- * Copyright 2023 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-:host {
-  --override-transparent: rgb(0 0 0 / 0%);
-
-  display: var(--dialog-display);
-}
-
-dialog::backdrop {
-  background: var(--override-transparent);
-}
-
-dialog {
-  background: transparent;
-  border: none;
-  top: var(--dialog-top);
-  padding: var(--dialog-padding);
-  left: var(--dialog-left);
-  right: var(--dialog-right);
-  margin: var(--dialog-margin);
-  margin-left: var(--dialog-margin-left, 0);
-  margin-bottom: var(--dialog-margin-bottom);
-  animation-name: slideIn;
-  animation-duration: 100ms;
-  animation-timing-function: cubic-bezier(0, 0, 0.3, 1);
-  overflow: hidden;
-  filter: drop-shadow(0 4px 8px rgb(0 0 0 / 15%)) drop-shadow(0 1px 3px rgb(0 0 0 / 30%));
-}
-
-dialog:focus,
-dialog:focus-visible {
-  outline: none;
-}
-
-#content {
-  min-width: var(--content-min-width);
-  background: var(--color-background-elevation-dark-only);
-  border-radius: var(--sys-size-5);
-  max-height: var(--dialog-max-height);
-  max-width: var(--dialog-max-width);
-  overflow: auto;
-  outline: none;
-}
-
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--sys-size-5) var(--sys-size-5) var(--sys-size-5) var(--sys-size-8);
-
-  &:empty {
-    padding: 0;
-    height: var(--sys-size-7);
-  }
-
-  .dialog-header-text {
-    font: var(--sys-typescale-body2-medium);
-  }
-}
-
-.dialog-content {
-  padding: 0 0 var(--sys-size-7);
-  overflow: hidden;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(var(--dialog-offset-y));
-    opacity: 0%;
-  }
-
-  to {
-    opacity: 100%;
-  }
-}
-
+`:host{--override-transparent:rgb(0 0 0/0%);display:var(--dialog-display)}dialog::backdrop{background:var(--override-transparent)}dialog{background:transparent;border:none;top:var(--dialog-top);padding:var(--dialog-padding);left:var(--dialog-left);right:var(--dialog-right);margin:var(--dialog-margin);margin-left:var(--dialog-margin-left,0);margin-bottom:var(--dialog-margin-bottom);animation-name:slideIn;animation-duration:100ms;animation-timing-function:cubic-bezier(0,0,0.3,1);overflow:hidden;filter:drop-shadow(0 4px 8px rgb(0 0 0/15%)) drop-shadow(0 1px 3px rgb(0 0 0/30%))}dialog:focus,
+dialog:focus-visible{outline:none}#content{min-width:var(--content-min-width);background:var(--color-background-elevation-dark-only);border-radius:var(--sys-size-5);max-height:var(--dialog-max-height);max-width:var(--dialog-max-width);overflow:auto;outline:none}.dialog-header{display:flex;justify-content:space-between;align-items:center;padding:var(--sys-size-5) var(--sys-size-5) var(--sys-size-5) var(--sys-size-8);&:empty{padding:0;height:var(--sys-size-7)}.dialog-header-text{font:var(--sys-typescale-body2-medium)}}.dialog-content{padding:0 0 var(--sys-size-7);overflow:hidden}@keyframes slideIn{from{transform:translateY(var(--dialog-offset-y));opacity:0%}to{opacity:100%}}
 /*# sourceURL=dialog.css */
 `);
 
